@@ -56,12 +56,14 @@ if get(g:, 'is#do_default_mappings', 1)
   if mapcheck("\<C-k>", 'c') ==# ''
     cmap <C-k> <Plug>(is-scroll-b)
   endif
-  for s:map in ['n', 'N', '*', '#', 'g*', 'g#']
-    if mapcheck(s:map, '') ==# ''
-      execute printf(':map %s <Plug>(is-%s)', s:map, s:map)
-    endif
-  endfor
-  unlet s:map
+  if get(g:, 'is#auto_nohlsearch', 1)
+    for s:map in ['n', 'N', '*', '#', 'g*', 'g#']
+      if mapcheck(s:map, '') ==# ''
+        execute printf(':map %s <Plug>(is-%s)', s:map, s:map)
+      endif
+      unlet s:map
+    endfor
+  endif
 endif
 
 " __END__
